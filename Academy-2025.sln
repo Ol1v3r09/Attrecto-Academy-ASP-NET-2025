@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academy-2025", "Academy-2025\Academy-2025.csproj", "{147B0394-B46F-4A25-B62B-7C76D16C1777}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator-Academy-2025", "Calculator-Academy-2025\Calculator-Academy-2025.csproj", "{22F28B5A-343F-4485-8DD2-15D1975415F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{147B0394-B46F-4A25-B62B-7C76D16C1777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{147B0394-B46F-4A25-B62B-7C76D16C1777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{147B0394-B46F-4A25-B62B-7C76D16C1777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F28B5A-343F-4485-8DD2-15D1975415F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F28B5A-343F-4485-8DD2-15D1975415F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F28B5A-343F-4485-8DD2-15D1975415F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F28B5A-343F-4485-8DD2-15D1975415F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
