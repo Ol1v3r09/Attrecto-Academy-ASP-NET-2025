@@ -4,6 +4,7 @@ namespace Academy_2025.Data
 {
     public class User
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -13,5 +14,7 @@ namespace Academy_2025.Data
         [Required]
         [StringLength(50)]
         public string? LastName { get; set; }
+
+        public int Age { get; set; }
     }
 }

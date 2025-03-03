@@ -1,4 +1,5 @@
 ﻿using Academy_2025.Data;
+using Academy_2025.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -10,40 +11,34 @@ namespace Academy_2025.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        public static List<Course>? Courses = new List<Course>();
+        private CourseRepository _repository;
+
+        public CourseController()
+        {
+            _repository = new CourseRepository();
+        }
 
         // GET: api/<CourseController>
         [HttpGet]
         public IEnumerable<Course> Get()
         {
-            return Courses;
+            return _repository.GetAll();
         }
 
         // GET api/<CourseController>/5
         [HttpGet("{id}")]
         public ActionResult<Course> Get(int id)
         {
-            foreach (var course in Courses)
-            {
-                if (course.Id == id)
-                {
-                    return Ok(course);
-                }
-            }
+            var course = _repository.GetById(id);
 
-            return NotFound();
+            return course == null ? NotFound() : course;
         }
 
         // POST api/<CourseController>
         [HttpPost]
         public ActionResult Post([FromBody] Course data)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            Courses.Add(data);
+            _repository.Create(data);
 
             return NoContent();
         }
@@ -52,35 +47,18 @@ namespace Academy_2025.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Course data)
         {
-            foreach (var course in Courses)
-            {
-                if (course.Id == id)
-                {
-                    course.Name = data.Name;
-                    course.Description = data.Description;
+            var user = _repository.Update(id, data);
 
-                    return NoContent();
-                }
-            }
-
-            return NotFound();
+            return user == null ? NotFound() : NoContent();
         }
 
         // DELETE api/<CourseController>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            foreach (var course in Courses)
-            {
-                if (course.Id == id)
-                {
-                    Courses.Remove(course);
+            var result = _repository.Delete(id);
 
-                    return NoContent();
-                }
-            }
-
-            return NotFound();
+            return result ? NoContent() : NotFound();
         }
     }
 }
