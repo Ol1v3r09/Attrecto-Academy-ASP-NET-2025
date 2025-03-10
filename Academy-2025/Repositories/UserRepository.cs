@@ -1,48 +1,49 @@
 ﻿using Academy_2025.Data;
+using Microsoft.EntityFrameworkCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Academy_2025.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public UserRepository()
+        public UserRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
 
-        public List<User> GetUsersAbove18()
+        public Task<List<User>> GetUsersAbove18Async()
         {
-            return _context.Users.Where(x => x.Age > 18).ToList();
+            return _context.Users.Where(x => x.Age > 18).ToListAsync();
         }
 
-        public List<User> GetAll() 
+        public Task<List<User>> GetAllAsync()
         {
-            return _context.Users.ToList();
+            return _context.Users.ToListAsync();
         }
 
-        public User? GetById(int id)
+        public Task<User?> GetByIdAsync(int id)
         {
-            return _context.Users.FirstOrDefault(x => x.Id == id);
+            return _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(User data)
+        public async Task CreateAsync(User data)
         {
-            _context.Users.Add(data);
-            _context.SaveChanges();
+            await _context.Users.AddAsync(data);
+            await _context.SaveChangesAsync();
         }
 
-        public User? Update(int id, User data)
+        public async Task<User?> UpdateAsync(int id, User data)
         {
 
-            var user = _context.Users.FirstOrDefault(x => x.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (user.Id == id)
             {
-                user.FirstName = data.FirstName;
-                user.LastName = data.LastName;
+                user.Name = data.Name;
+                user.Role = data.Role;
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return user;
             }
@@ -50,21 +51,21 @@ namespace Academy_2025.Repositories
             return null;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (user.Id == id)
             {
                 _context.Users.Remove(user);
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return true;
             }
 
             return false;
         }
-    
+
     }
 
 }

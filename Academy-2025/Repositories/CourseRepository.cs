@@ -2,13 +2,13 @@
 
 namespace Academy_2025.Repositories
 {
-    public class CourseRepository
+    public class CourseRepository : ICourseRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public CourseRepository()
+        public CourseRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
 
         public List<Course> GetAll()
@@ -34,6 +34,7 @@ namespace Academy_2025.Repositories
             {
                 course.Name = data.Name;
                 course.Description = data.Description;
+                course.Author = data.Author;
 
                 _context.SaveChanges();
 
