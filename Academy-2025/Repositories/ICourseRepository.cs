@@ -4,10 +4,10 @@ namespace Academy_2025.Repositories
 {
     public interface ICourseRepository
     {
-        void Create(Course data);
-        bool Delete(int id);
-        List<Course> GetAll();
-        Course? GetById(int id);
-        Course? Update(int id, Course data);
+        Task CreateAsync(Course data);
+        Task<bool> DeleteAsync(int id);
+        Task<List<Course>> GetAllAsync();
+        Task<Course?> GetByIdAsync(int id);
+        Task<Course> UpdateAsync(int id, Course data);
     }
 }

@@ -9,6 +9,7 @@ namespace Academy_2025.Repositories
         Task<List<User>> GetAllAsync();
         Task<User?> GetByIdAsync(int id);
         Task<List<User>> GetUsersAbove18Async();
-        Task<User?> UpdateAsync(int id, User data);
+        Task<User?> GetByEmailAsync(string email);
+        Task<int> UpdateAsync();
     }
 }

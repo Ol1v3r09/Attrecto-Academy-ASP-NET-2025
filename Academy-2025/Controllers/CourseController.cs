@@ -1,5 +1,7 @@
 ﻿using Academy_2025.Data;
+using Academy_2025.DTOs;
 using Academy_2025.Repositories;
+using Academy_2025.Services;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -11,52 +13,52 @@ namespace Academy_2025.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        private readonly ICourseRepository _repository;
+        private readonly ICourseService _service;
 
-        public CourseController(ICourseRepository repository)
+        public CourseController(ICourseService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         // GET: api/<CourseController>
         [HttpGet]
-        public IEnumerable<Course> Get()
+        public async Task<IEnumerable<CourseDTO>> Get()
         {
-            return _repository.GetAll();
+            return await _service.GetAllAsync();
         }
 
         // GET api/<CourseController>/5
         [HttpGet("{id}")]
-        public ActionResult<Course> Get(int id)
+        public async Task<ActionResult<CourseDTO>> Get(int id)
         {
-            var course = _repository.GetById(id);
+            var course = await _service.GetByIdAsync(id);
 
             return course == null ? NotFound() : course;
         }
 
         // POST api/<CourseController>
         [HttpPost]
-        public ActionResult Post([FromBody] Course data)
+        public async Task<ActionResult> Post([FromBody] CourseDTO data)
         {
-            _repository.Create(data);
+            await _service.CreateAsync(data);
 
             return NoContent();
         }
 
         // PUT api/<CourseController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Course data)
+        public async Task<ActionResult> Put(int id, [FromBody] CourseDTO data)
         {
-            var user = _repository.Update(id, data);
+            var user = await _service.UpdateAsync(id, data);
 
             return user == null ? NotFound() : NoContent();
         }
 
         // DELETE api/<CourseController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var result = _repository.Delete(id);
+            var result = await _service.DeleteAsync(id);
 
             return result ? NoContent() : NotFound();
         }
